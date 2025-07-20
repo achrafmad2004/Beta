@@ -9,26 +9,6 @@ RELAY_PORT = 20002
 USERNAME = "Achraf~1"
 VERSION = "0.2.11-MULTIPLAYER"
 
-# === Auth helpers ===
-def generate_encrypt_id():
-    base = 45385400000
-    t = int(time.time() * 1000)
-    simulated_id = base + (t % 100000)
-    return f"{simulated_id}.263"
-
-def build_mod_hash(encrypt_id):
-    return (
-        f"theOrder=true;"
-        f"unlocked=true;"
-        f"encryptID={encrypt_id};"
-        f"serversideConnectionID=423bca98;"
-        f"FantomsPreview=2.3.0;"
-        f"Multiplayer={VERSION};"
-        f"Saturn=0.2.2-E-ALPHA;"
-        f"Steamodded-1.0.0~BETA-0614a;"
-        f"TheOrder-MultiplayerIntegration"
-    )
-
 # === Keep-alive thread ===
 def keep_alive(sock):
     while True:
