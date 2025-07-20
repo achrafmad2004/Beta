@@ -49,14 +49,10 @@ def main():
         server_sock.connect((SERVER_HOST, SERVER_PORT))
         print("[✓] Connected to Balatro server.")
 
-        # === Step 2: Perform authentication handshake ===
-        encrypt_id = generate_encrypt_id()
-        mod_hash = build_mod_hash(encrypt_id)
-
-        server_sock.sendall(f"action:username,username:{USERNAME},modHash:\n".encode())
+        # === Step 2: Send basic identification (without mod hash) ===
+        server_sock.sendall(f"action:username,username:{USERNAME}\n".encode())
         server_sock.sendall(f"action:version,version:{VERSION}\n".encode())
-        server_sock.sendall(f"action:username,username:{USERNAME},modHash:{mod_hash}\n".encode())
-        print("[→] Sent authentication handshake.")
+        print("[→] Sent basic authentication info.")
 
         # Start keep-alive ping
         threading.Thread(target=keep_alive, args=(server_sock,), daemon=True).start()
